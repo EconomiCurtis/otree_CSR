@@ -1,0 +1,30 @@
+{% extends "global/BaseCSR.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Instructions 1
+{% endblock %}
+
+{% block content %}
+
+<div class="instructions well well-lg">
+
+    <h3 class="panel-sub-heading">
+        Instructions
+    </h3>
+
+    <p>
+        Thank you for participating in this study on economic decision making.
+    </p>
+    <p>
+        Please read, sign, and return the consent form in front of you and review the instructions. 
+    </p>
+    <p>
+        When you have finished reviewing the materials, press Continue below
+    </p>
+
+</div>
+
+    {% next_button %}
+
+{% endblock %}

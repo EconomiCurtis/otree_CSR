@@ -1,0 +1,46 @@
+{% extends "global/BaseCSR.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Task 1 Summary
+{% endblock %}
+
+{% block content %}
+
+    <p class="text-success">
+    </p>
+
+    <div class="panel panel-success">
+
+        <div class="panel-heading">
+                <h4>You Transcribed {{total_correct}} text strings correctly. </h4>
+                <h4>Your Total Score: {{ total_score }} points. </h4>
+                Note, if you see "False" and 0 points for a correct answer to your final task, that means the task was submitted after the timer had expired.
+
+        </div>
+
+        <table class="table">           
+            <tr>
+                <th>Transcription #</th>
+                <th>Text</th>
+                <th>Your Entry</th>
+                <th>Correct?</th>
+                <th>Score</th>
+            </tr>
+            {% for row in table_rows %}
+            <tr>
+                <td>{{ row.round_number }}</td>
+                <td>{{ row.real_text }}</td>
+                <td>{{ row.player_text }}</td>
+                <td>{{ row.is_correct }}</td>
+                <td>{{ row.total_score }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% next_button %}
+
+{% endblock %}
