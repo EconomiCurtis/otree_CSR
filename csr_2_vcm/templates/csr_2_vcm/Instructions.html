@@ -1,0 +1,29 @@
+{% extends "global/BaseCSR.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Instructions to Part 2
+{% endblock %}
+
+{% block content %}
+
+    <div class="instructions well well-lg">
+
+        <p>
+            You received {{ ret_score }} points in Part 1.
+        </p>
+        <p>
+            Other members in your group received the following: {{ op_scores |join:", " }}. 
+        </p>
+        <p>
+            In total, other members of your group have {{ op_scores_sum }} points to invest. 
+        </p>
+        <p>
+            When you are ready, click next to start the next part of today's session.
+        </p>
+
+    </div>
+
+    {% next_button %}
+
+{% endblock %}

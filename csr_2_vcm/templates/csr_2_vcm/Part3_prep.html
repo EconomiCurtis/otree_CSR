@@ -1,0 +1,45 @@
+{% extends "global/BaseCSR.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Part 2 Summary. 
+{% endblock %}
+
+{% block content %}
+
+    <p class="text-success">
+    </p>
+
+    <div class="panel panel-success">
+
+        <div class="panel-heading">
+                <h4>Round {{ paid_round }} was randomly selected as your paid round. 
+                <h4>You earned a score of <b>{{ self_final_score }}</b>.
+
+        </div>
+
+        <table class="table">           
+            <tr>
+                <th><center>Round #</th>
+                <th><center>Your individual exchange</th>
+                <th><center>Your group exchange</th>
+                <th><center>Group exchange percent</th>
+                <th><center>Your score</th>
+            </tr>
+            {% for row in table_rows %}
+            <tr>
+                <td><center>{{ row.round_number }}</td>
+                <td><center>{{ row.individual_exchange }}</center></td>
+                <td><center>{{ row.group_exchange }}</center></td> 
+                <td><center>{{ row.group_exchange_percent }}% </center></td> 
+                <td><center>{{ row.round_points }}</center></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% next_button %}
+
+{% endblock %}
