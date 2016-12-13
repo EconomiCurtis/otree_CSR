@@ -76,8 +76,9 @@ class SelectInvestment(Page):
 
     form_model = models.Player
     form_fields = [
-        'individual_exchange',
-        'group_exchange',
+        # 'individual_exchange',
+        # 'group_exchange',
+        'group_exchange_percent',
         ]
 
     def after_all_players_arrive(self):
@@ -85,13 +86,6 @@ class SelectInvestment(Page):
 
     def is_displayed(self):
         return self.participant.vars['vcm_round_number'] <= self.participant.vars['vcm_round_count']
-
-    def error_message(self, values):
-
-        ret_score = self.participant.vars["ret_score"]
-
-        if values["individual_exchange"] + values["group_exchange"] != ret_score:
-            return 'Individual and Group exchange contributions must add up to ' + str(ret_score)
 
     def vars_for_template(self):
 
@@ -112,12 +106,17 @@ class SelectInvestment(Page):
             'op_scores_sum':op_scores_sum,
         }
 
+    def before_next_page(self):
+        self.player.group_exchange_percent = self.player.group_exchange_percent * 0.01
+        self.player.group_exchange = self.participant.vars["ret_score"] * (self.player.group_exchange_percent)
+        self.player.individual_exchange = self.participant.vars["ret_score"] - self.player.group_exchange
+
 
 class WaitPage2(WaitPage):
 
     def is_displayed(self):
-        if self.participant.vars['vcm_round_number'] <= self.participant.vars['vcm_round_count']:
-            self.player.group_exchange_percent = float(self.player.group_exchange) / float(self.player.group_exchange + self.player.individual_exchange)
+        # if self.participant.vars['vcm_round_number'] <= self.participant.vars['vcm_round_count']:
+        #     self.player.group_exchange_percent = float(self.player.group_exchange) / float(self.player.group_exchange + self.player.individual_exchange)
         return self.participant.vars['vcm_round_number'] <= self.participant.vars['vcm_round_count']
 
 
@@ -146,8 +145,8 @@ class SelectInvestment_Review(Page):
         op_individual_exchange_thisround = []
         op_group_exchange_thisround = []
         for op in self.player.get_others_in_group():
-            op_individual_exchange_thisround.append(op.individual_exchange)
-            op_group_exchange_thisround.append(op.group_exchange)
+            op_individual_exchange_thisround.append(round(op.individual_exchange, 2))
+            op_group_exchange_thisround.append(round(op.group_exchange, 2))
 
         score_op_individual_exchange_thisround = 1/2 * sum(op_individual_exchange_thisround)
 

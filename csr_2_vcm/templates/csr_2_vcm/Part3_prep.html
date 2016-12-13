@@ -29,10 +29,10 @@
             {% for row in table_rows %}
             <tr>
                 <td><center>{{ row.round_number }}</td>
-                <td><center>{{ row.individual_exchange }}</center></td>
-                <td><center>{{ row.group_exchange }}</center></td> 
+                <td><center>{{ row.individual_exchange |floatformat:"2"}}</center></td>
+                <td><center>{{ row.group_exchange |floatformat:"2"}}</center></td> 
                 <td><center>{{ row.group_exchange_percent }}% </center></td> 
-                <td><center>{{ row.round_points }}</center></td>
+                <td><center>{{ row.round_points |floatformat:"2"}}</center></td>
             </tr>
             {% endfor %}
 
@@ -40,6 +40,8 @@
 
     </div>
 
-    {% next_button %}
+    <div align="right">
+      {% next_button %}
+    </div>
 
 {% endblock %}

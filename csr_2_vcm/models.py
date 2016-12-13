@@ -69,22 +69,23 @@ class Player(BasePlayer):
 		doc='The vcm round number.'
 		)
 
-	individual_exchange = models.IntegerField(
-		min=0,
-		max=555,
+	individual_exchange = models.FloatField(
 		initial=None,
 		verbose_name='Individual exchange:', 
 		doc="Individual exchange contribution in this round")
 
-	group_exchange = models.IntegerField(
-		min=0,
-		max=555,
+	group_exchange = models.FloatField(
 		initial=None,
 		verbose_name='Group exchange:', 
 		doc="Group exchange contribution in this round")
 
 	group_exchange_percent = models.FloatField(
-		doc="in this round, this subject's percent contribution to group exchange relative to total amount availale to user")
+		min = 5, max = 95,
+		blank=True, #not required
+		doc="in this round, this subject's percent contribution to group exchange relative to total amount availale to user",
+		widget=widgets.SliderInput(
+			attrs={'step': '1','value':'5'}))
+
 
 	total_op_individual_exchange = models.FloatField(
 		doc='total individual_exchange contributions of opposing players'

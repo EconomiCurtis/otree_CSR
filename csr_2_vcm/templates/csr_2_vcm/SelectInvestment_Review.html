@@ -22,18 +22,18 @@
 <table class="tg">
   <tr>
     <th class="tg-xu5a">Your individual exchange contribution:</th>
-    <th class="tg-rq3q">{{self_individual_exchange}}</th>
-    <th class="tg-31tv">{{self_individual_exchange}}</th>
+    <th class="tg-rq3q">{{self_individual_exchange|floatformat:"2"}}</th>
+    <th class="tg-31tv">{{self_individual_exchange|floatformat:"2"}}</th>
   </tr>
   <tr>
     <td class="tg-xu5a">Your group exchange contribution:</td>
-    <td class="tg-rq3q">+ 1/2 * {{self_group_exchange}}</td>
-    <td class="tg-31tv">+ {{group_exchange_score}}</td>
+    <td class="tg-rq3q">+ 1/2 * {{self_group_exchange|floatformat:"2"}}</td>
+    <td class="tg-31tv">+ {{group_exchange_score|floatformat:"2"}}</td>
   </tr>
   <tr>
     <td class="tg-xu5a">Other group members' individual exchange:</td>
-    <td class="tg-rq3q">- 1/2 * ({{op_individual_exchange_thisround|join:" + " }})</td>
-    <td class="tg-31tv">- {{score_op_individual_exchange_thisround}}</td>
+    <td class="tg-rq3q">- 1/2 * ({{op_individual_exchange_thisround|join:" + "}})</td>
+    <td class="tg-31tv">- {{score_op_individual_exchange_thisround|floatformat:"2"}}</td>
   </tr>
   <tr>
     <td class="tg-xu5a">Other group members' group exchange:</td>
@@ -48,10 +48,13 @@
   <tr>
     <td class="tg-mz0l">You have received the following earnings from Round {{vcm_round_number}}:</td>
     <td class="tg-zqy6"></td>
-    <td class="tg-bmag">{{round_points}}</td>
+    <td class="tg-bmag">{{round_points|floatformat:"2"}}</td>
   </tr>
 </table>
 
-    {% next_button %}
+<br>
+    <div align="right">
+      {% next_button %}
+    </div>
 
 {% endblock %}
