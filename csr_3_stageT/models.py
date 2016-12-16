@@ -32,7 +32,7 @@ class Constants(BaseConstants):
     name_in_url = 'csr_3_stage'
     players_per_group = 2
     num_rounds = 15
-    investment_rounds = 5 # "rounds" as understood in instructions. move this to settings.py config field, or admin interface. 
+    stage_rounds = 1 # moved to stratagey method, one round only
     automatic_earnings = 120
     endowment_boost = 60
     instructions_template = 'csr_3_stageT/instruc.html'
@@ -53,7 +53,7 @@ class Group(BaseGroup):
 
 		if A_player.A_stage1 == 'A1':
 			for p in self.get_players():
-				p.participant.vars['end_this_stage_round'] = True #end this round
+				# p.participant.vars['end_this_stage_round'] = True #end this round
 				p.round_payoff = p.participant.vars['final_score'] # set scores
 		elif A_player.A_stage1 == 'A2':  #don't think i want to do anything in this case 
 			pass
@@ -66,7 +66,7 @@ class Group(BaseGroup):
 
 		if F_player.F_stage2 == 'F1': #F2 means pass to A to make decision A3/A4
 			for p in self.get_players():
-				p.participant.vars['end_this_stage_round'] = True #end this round
+				# p.participant.vars['end_this_stage_round'] = True #end this round
 				if p.participant.vars['Role'] == 'A':
 					A_GE = (p.participant.vars['overall_ge_percent'] * p.participant.vars['ret_score']) 
 					A_Endow = p.participant.vars['ret_score'] + Constants.endowment_boost
@@ -89,7 +89,7 @@ class Group(BaseGroup):
 		# A3 "If the Role A participant chooses A3, both participants again receive the amount they earned during Part 2."
 		if A_player.A_stage3 == 'A3': 
 			for p in self.get_players():
-				p.participant.vars['end_this_stage_round'] = True #end this round
+				# p.participant.vars['end_this_stage_round'] = True #end this round
 				p.round_payoff = p.participant.vars['final_score']
 		elif A_player.A_stage3 == 'A4':  #A4
 			pass
@@ -204,20 +204,26 @@ class Player(BasePlayer):
 
 	def set_terminal_node(self):
 		"""explicitly define terminal node reached by A and F in this group"""
-		TN = None
+		A_tn = None
+		F_tn = None
+		N_tn = None #nature
 		for p in self.group.get_players():
 			if p.participant.vars['Role'] == 'A':
-				if p.A_stage1 == "A1": TN = "A1"
-				elif p.A_stage3 == "A3": TN = "A3"
-
-
-
+				if p.A_stage1 == "A1": A_tn = "A1"
+				elif p.A_stage3 == "A3": A_tn = "A3"
+				elif p.A_stage3 == "A4": A_tn = "A4"
 			elif p.participant.vars['Role'] == 'F':
-				if p.F_stage2 == 'F1': TN = 'F1'
+				if p.F_stage2 == 'F1': F_tn = 'F1'
+				elif p.F_stage2 == 'F2': F_tn = 'F2'
 
-			if TN == None: 
-				if p.Nature == 'N1': TN = 'N1'
-				elif p.Nature == 'N2': TN = 'N2'
+			if p.Nature == 'N1': N_tn = 'N1'
+			elif p.Nature == 'N2': N_tn = 'N2'
+
+		TN = None
+		if A_tn == "A1": TN = A_tn
+		elif F_tn == 'F1': TN = F_tn
+		elif A_tn == "A3": TN = A_tn
+		else: TN = N_tn
 
 		for p in self.group.get_players():
 			p.terminal_choice = TN

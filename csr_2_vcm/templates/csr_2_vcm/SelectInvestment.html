@@ -118,7 +118,6 @@
         var GE_contrib = (Number(val) / 100 * {{ ret_score }}).toFixed(2);
         var IE_contrib = ({{ ret_score }} - GE_contrib).toFixed(2) ;
 
-
         document.getElementById('id_ge_percent_slider').innerHTML = val;
         document.getElementById('id_individual_exchange').innerHTML = IE_contrib;
         document.getElementById('id_group_exchange').innerHTML = GE_contrib;

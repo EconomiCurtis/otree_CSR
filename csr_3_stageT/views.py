@@ -175,7 +175,7 @@ class A_Stage1(Page):
         return (
             (self.round_number >= 3) 
             & (self.participant.vars['Role'] == 'A') 
-            & (self.participant.vars['stage_round'] <= Constants.investment_rounds))
+            & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
 
     def vars_for_template(self):
 
@@ -220,7 +220,7 @@ class F_Stage2(Page):
         return ((self.round_number >= 3) 
             & (self.participant.vars['Role'] == 'F') 
             & (self.participant.vars['end_this_stage_round'] == False)
-            & (self.participant.vars['stage_round'] <= Constants.investment_rounds))
+            & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
 
     def vars_for_template(self):
 
@@ -268,7 +268,7 @@ class A_Stage3(Page):
         return ((self.round_number >= 3) 
             & (self.participant.vars['Role'] == 'A') 
             & (self.participant.vars['end_this_stage_round'] == False)
-            & (self.participant.vars['stage_round'] <= Constants.investment_rounds))
+            & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
 
     def vars_for_template(self):
 
@@ -309,7 +309,7 @@ class Nature(Page):
     def is_displayed(self):
         return ((self.round_number >= 3) 
             & (self.participant.vars['end_this_stage_round'] == False) 
-            & (self.participant.vars['stage_round'] <= Constants.investment_rounds))
+            & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
 
     def vars_for_template(self):
 
@@ -340,7 +340,7 @@ class Results(Page):
     def is_displayed(self):
         return ((self.round_number >= 3) 
             & (self.participant.vars['end_this_stage_round'] == True)
-            & (self.participant.vars['stage_round'] <= Constants.investment_rounds))
+            & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
 
 
     def vars_for_template(self):
@@ -378,7 +378,7 @@ class Results(Page):
 class FinalResults(Page):
 
     def is_displayed(self):
-        return (self.participant.vars['stage_round'] > Constants.investment_rounds)
+        return (self.participant.vars['stage_round'] > Constants.stage_rounds)
 
 
     def vars_for_template(self):

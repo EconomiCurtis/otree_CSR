@@ -12,22 +12,22 @@
         <div class="panel-heading">
             
             <h4>
-                Your score from Part 1: {{ part1_score }} points. 
+                Your score from Part 1: {{ part1_score|floatformat:"2" }} points. 
             </h4>
             <h4>
-                Your score from Part 2: {{ part2_score }} points. 
+                Your score from Part 2: {{ part2_score|floatformat:"2" }} points. 
             </h4>
             <h4>
-                Your score from Part 3: {{ final_score }}.
+                Your score from Part 3: {{ final_score|floatformat:"2" }}.
             </h4>
             <h3>
-                You will receive: {{ final_cash }}
+                You will receive: ${{ final_cash|floatformat:"2" }}
             </h3>
 
 
         </div>
 
-        <table class="table">           
+<!--         <table class="table">           
             <tr>
                 <th><center>Round #</th>
                 <th><center>Terminal Node</th>
@@ -41,7 +41,7 @@
             </tr>
             {% endfor %}
 
-        </table>
+        </table> -->
 
     </div>
 
