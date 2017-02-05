@@ -5,22 +5,43 @@ from .models import Constants
 from django.conf import settings
 import time
 
-
-class Instructions1(Page):
-    timeout_seconds = 60
+class holdon(Page):
 
     def is_displayed(self):
         return self.round_number == 1
+
+    def vars_for_template(self):
+        return{
+            'debug': settings.DEBUG,
+        }
+
+class Instructions1(Page):
+    # timeout_seconds = 60
+
+    def is_displayed(self):
+        return self.round_number == 1
+
+    def var_for_template(self):
+        return{
+            'debug': settings.DEBUG,
+        }
 
 
 class Instructions2(Page):
     def is_displayed(self):
         return self.round_number == 2
 
+    def vars_for_template(self):
+        return{
+            'debug': settings.DEBUG,
+        }
+
     def before_next_page(self):
         if ('start_time' not in self.participant.vars):
             self.participant.vars['start_time'] = time.time()
             self.participant.vars['end_time'] = time.time() + self.player.ret_timer
+
+
 
 class TranscribeTask(Page):   
 
@@ -44,15 +65,15 @@ class TranscribeTask(Page):
         # For Page "Number of Correct Words"
         total_correct = 0
         for p in self.player.in_all_rounds():
-            if p.payoff != None: 
-                total_correct += p.payoff
+            if p.round_payoff != None: 
+                total_correct += p.round_payoff
 
         # set up messgaes in transcription task
-        if self.player.in_previous_rounds()[-1].final_score == None: #on very first task
+        if self.player.in_previous_rounds()[-1].ret_final_score == None: #on very first task
             correct_last_round = "<br>"
-            final_score = 40
+            ret_final_score = 40
         else: #all subsequent tasks
-            final_score = int(self.player.in_previous_rounds()[-1].final_score)
+            ret_final_score = int(self.player.in_previous_rounds()[-1].ret_final_score)
             if self.player.in_previous_rounds()[-1].is_correct:
                 correct_last_round = "Your last guess was <font color='green'>correct</font>"
             else: 
@@ -72,8 +93,8 @@ class TranscribeTask(Page):
             'init_time': self.participant.vars['start_time'],
             'time_expended': time_expended,
             'correct_last_round': correct_last_round,
-            'total_correct': total_correct,
-            'final_score':final_score,
+            'total_correct': int(total_correct),
+            'final_score':ret_final_score,
             'round_count':(self.round_number - 1),
             'reference_text': Constants.reference_texts[self.round_number - 1],
             'debug': settings.DEBUG,
@@ -91,10 +112,13 @@ class TranscribeTask(Page):
         if (end_of_timer > final_time):
             if (Constants.reference_texts[self.round_number - 1] == self.player.user_text):
             	self.player.is_correct = True
-            	self.player.payoff = 1
+            	self.player.round_payoff = 1
             else: 
-            	self.player.is_correct = False
-    	        self.player.payoff = c(0)
+                self.player.is_correct = False
+                self.player.round_payoff = c(0)
+        else:
+            self.player.is_correct = False
+            self.player.round_payoff = c(0)
 
         self.player.set_final_score()       
 
@@ -116,23 +140,25 @@ class TaskResults(Page):
         ##### Get Own Score #####################################################
         total_correct = 0
         for p in self.player.in_all_rounds():
-            if p.payoff != None: 
-                total_correct += p.payoff
+            if p.round_payoff != None: 
+                total_correct += p.round_payoff
+            else: 
+                total_correct += 0
 
         # get final score, by going through all rounds, and pulling out the max observed, ignoring all the Nones. 
-        total_payoff = max(x.final_score for x in self.player.in_previous_rounds() if x.final_score is not None)
+        total_payoff = max(x.ret_final_score for x in self.player.in_previous_rounds() if x.ret_final_score is not None)
 
         ######### Get other members of group's scores ##########################
         op_scores = []
         for op in self.player.get_others_in_group():
-            op_final_score = max(x.final_score for x in op.in_previous_rounds() if x.final_score is not None)
-            op_scores.append(op_final_score)
+            op_ret_final_score = max(x.ret_final_score for x in op.in_previous_rounds() if x.ret_final_score is not None)
+            op_scores.append(op_ret_final_score)
 
         ######### Get other members of group's scores ##########################
         all_ret_scores = []
         for p in self.player.get_others_in_group():
-            p_final_score = max(x.final_score for x in p.in_previous_rounds() if x.final_score is not None)
-            all_ret_scores.append(op_final_score)
+            p_final_score = max(x.ret_final_score for x in p.in_previous_rounds() if x.ret_final_score is not None)
+            all_ret_scores.append(op_ret_final_score)
 
         ##### save all variables ###############################################
 
@@ -153,7 +179,7 @@ class TaskResults(Page):
                     'real_text': Constants.reference_texts[prev_player.round_number - 1],
                     'player_text': prev_player.user_text,
                    	'is_correct':prev_player.is_correct,
-                    'total_score': prev_player.final_score,
+                    'total_score': prev_player.ret_final_score,
                 }
                 table_rows.append(row)
 
@@ -166,6 +192,7 @@ class TaskResults(Page):
 
 
 page_sequence = [
+    holdon,
     Instructions1, 
     Instructions2,
     TranscribeTask,

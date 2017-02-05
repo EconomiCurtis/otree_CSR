@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Instructions 2
+    Instructions
 {% endblock %}
 
 {% block content %}
@@ -22,19 +22,19 @@
         You are about to start the <b>typing task</b>.
     </p>
     <p>
-        The typing task is to correctly type text sequences of randomly selected letters and numbers.
+        The typing task is to correctly type sequences of randomly selected letters and numbers.
     </p>
     <p>
-        You will have five minutes to type as many text sequences as possible. Note that each character has to be correct.
+        You will have five minutes to type as many sequences as possible. Note that each character has to be correct.
     </p>
     <p>
-        After typing a text sequence, click the <b>Next</b> button or click the keyboard button <b>enter</b> to submit it. Then a new text sequence will be generated.
+        After typing a text sequence, click the <b>Next</b> button or click the keyboard button <b>Enter</b> to submit it. Then a new text sequence will be generated.
     </p>
     <p>
-        The number of correctly-typed text sequences is displayed on the lower part of the screen.
+        The number of correctly-typed sequences is displayed on the lower part of the screen.
     </p>
     <p>
-        You will be paid for each successfully typed sequence:
+        You will get points for each successfully typed sequence, as follows:
 
         <table class="table table-bordered">  
           <tr>
@@ -69,7 +69,6 @@
 
     </p>
     <p>
-        When you are ready to start your typing task, click the <b>Next</b> button below. Your task will start right after. 
     </p>
 
 
@@ -77,6 +76,9 @@
 
 </div>
 
-    {% next_button %}
+    {% if debug %}
+      In debug mode only, 
+      {% next_button %}<br><br><br>
+    {% endif %}
 
 {% endblock %}

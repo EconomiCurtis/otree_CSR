@@ -285,42 +285,31 @@ class Player(BasePlayer):
 		doc="user's transcribed text")
 	is_correct = models.BooleanField(
 		doc="did the user get the task correct?")
-	final_score = models.IntegerField(
+	ret_final_score = models.IntegerField(
 		doc="player's total score up to this round")
+
+	round_payoff = models.FloatField(
+		doc="total number of correct real effort tasks, completed before timer expired")
+
+
 
 
 	def set_final_score(self):
 		correct_cnt = 0
 		for p in self.in_all_rounds():
-			if p.payoff != None: 
-				correct_cnt = correct_cnt + p.payoff
+			if p.round_payoff != None: 
+				correct_cnt = correct_cnt + p.round_payoff
+			else:
+				correct_cnt = correct_cnt + 0
 
 		if correct_cnt == None: 
-			self.final_score = 40
+			self.ret_final_score = 40
 		elif correct_cnt <= 10:
-			self.final_score = 40
-		elif correct_cnt == 11: 
-			self.final_score = 42
-		elif correct_cnt == 12: 
-			self.final_score = 44
-		elif correct_cnt == 13: 
-			self.final_score = 46
-		elif correct_cnt == 14: 
-			self.final_score = 48
-		elif correct_cnt == 15: 
-			self.final_score = 50
-		elif correct_cnt == 16: 
-			self.final_score = 52
-		elif correct_cnt == 17: 
-			self.final_score = 54
-		elif correct_cnt == 18: 
-			self.final_score = 56
-		elif correct_cnt == 19: 
-			self.final_score = 58
-		elif correct_cnt > 19: 
-			self.final_score = 60
+			self.ret_final_score = 40
+		elif (correct_cnt > 10) & (correct_cnt < 20): 
+			self.ret_final_score = 20 + (2 * correct_cnt)
 		else:
-			self.final_score = 60
+			self.ret_final_score = 60
 
 
 

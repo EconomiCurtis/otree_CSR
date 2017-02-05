@@ -144,6 +144,8 @@ class Instructions(Page):
             'overall_ge_percent_list':self.participant.vars['overall_ge_percent_list'],
             'group_matrix':group_matrix,
             'allplayers':group_matrix,
+
+            'debug': settings.DEBUG,
         }
 
     def before_next_page(self):
@@ -162,9 +164,65 @@ class WaitPage(WaitPage):
     def after_all_players_arrive(self):
         pass
 
+###############################################################################
+## Quiz Time ##################################################################
+###############################################################################
+
+class quiz1(Page):
+
+    form_model = models.Player
+    form_fields = ['quiz_01']
+
+    def is_displayed(self):
+        return self.round_number == 1
+
+    def quiz_01_error_message(self, value):
+        if (value != 60):
+            return 'Incorrect'
+
+
+    def vars_for_template(self):
+        return {
+            'debug': settings.DEBUG,
+        }
+    
+    
+
+class quiz1_sol(Page):
+
+    def is_displayed(self):
+        return self.round_number == 1
+
+
+####################### Quiz 3 #########################################
+class quiz2(Page):
+
+    form_model = models.Player
+    form_fields = ['quiz_02']
+
+    def is_displayed(self):
+        return self.round_number == 1
+
+    def quiz_02_error_message(self, value):
+        if (value != 40):
+            return 'Incorrect'
+
+    def vars_for_template(self):
+        return {
+            'debug': settings.DEBUG,
+        }
+
+class quiz2_sol(Page):
+
+    def is_displayed(self):
+        return self.round_number == 1
+
+
 
 ###############################################################################
 #### A1 A2 ####################################################################
+###############################################################################
+
 
 class A_Stage1(Page):
 
@@ -173,7 +231,7 @@ class A_Stage1(Page):
 
     def is_displayed(self):
         return (
-            (self.round_number >= 3) 
+            (self.round_number == 1) 
             & (self.participant.vars['Role'] == 'A') 
             & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
 
@@ -200,7 +258,7 @@ class A_Stage1(Page):
 class WaitPage_F1(WaitPage):
 
     def is_displayed(self):
-        return (self.round_number >= 3)
+        return (self.round_number == 1)
 
 
     def after_all_players_arrive(self):
@@ -217,7 +275,7 @@ class F_Stage2(Page):
     form_fields = ['F_stage2']
 
     def is_displayed(self):
-        return ((self.round_number >= 3) 
+        return ((self.round_number == 1) 
             & (self.participant.vars['Role'] == 'F') 
             & (self.participant.vars['end_this_stage_round'] == False)
             & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
@@ -245,7 +303,7 @@ class F_Stage2(Page):
 class WaitPage_A1(WaitPage):
 
     def is_displayed(self):
-        return (self.round_number >= 3)
+        return (self.round_number ==1 )
 
 
     def after_all_players_arrive(self):
@@ -265,7 +323,7 @@ class A_Stage3(Page):
     form_fields = ['A_stage3']
 
     def is_displayed(self):
-        return ((self.round_number >= 3) 
+        return ((self.round_number == 1) 
             & (self.participant.vars['Role'] == 'A') 
             & (self.participant.vars['end_this_stage_round'] == False)
             & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
@@ -294,7 +352,7 @@ class A_Stage3(Page):
 class WaitPage_F2(WaitPage):
 
     def is_displayed(self):
-        return (self.round_number >= 3)
+        return (self.round_number == 1)
 
 
     def after_all_players_arrive(self):
@@ -307,7 +365,7 @@ class WaitPage_F2(WaitPage):
 class Nature(Page):
 
     def is_displayed(self):
-        return ((self.round_number >= 3) 
+        return ((self.round_number == 1) 
             & (self.participant.vars['end_this_stage_round'] == False) 
             & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
 
@@ -338,7 +396,7 @@ class Nature(Page):
 class Results(Page):
 
     def is_displayed(self):
-        return ((self.round_number >= 3) 
+        return ((self.round_number == 1) 
             & (self.participant.vars['end_this_stage_round'] == True)
             & (self.participant.vars['stage_round'] <= Constants.stage_rounds))
 
@@ -388,7 +446,7 @@ class FinalResults(Page):
         final_score = 0
         for prev_player in self.player.in_all_rounds():
             if prev_player.round_payoff != None:
-                prev_player.payoff = c(prev_player.round_payoff)
+                prev_player.payoff = c(prev_player.round_payoff) * prev_player.participant.vars['final_score_discounter']
                 final_score += prev_player.round_payoff
 
                 row = {
@@ -405,7 +463,7 @@ class FinalResults(Page):
 
         #this logs payoffs into the otree "SessionPayments" screen, 
         # it needs to come after prev_player.payoff is set
-        self.session.config['participation_fee'] = 0
+        self.session.config['participation_fee'] = c(30).to_real_world_currency(self.session)
         self.session.config['real_world_currency_per_point'] = decimal.Decimal(1.0)
 
         return {
@@ -413,15 +471,22 @@ class FinalResults(Page):
         'part1_score':self.participant.vars["ret_score"],
         'part2_score':self.participant.vars['final_score'],
         'final_score':c(round(final_score,1)),
-        'final_cash':c(final_score).to_real_world_currency(self.session),
+        'variable_cash':c(self.player.payoff).to_real_world_currency(self.session),
         'table_rows': table_rows,
         'Role_self':self.player.role,
+        'showupfee':self.session.config['participation_fee'],
+        'point_aed_convert':round(1/prev_player.participant.vars['final_score_discounter'],2),
+        'final_cash':(c(self.player.payoff).to_real_world_currency(self.session) + self.session.config['participation_fee'])
         }
 
 
 page_sequence = [
     InitWaitPage,
     Instructions,
+    quiz1,
+    quiz1_sol,
+    quiz2,
+    quiz2_sol,
     WaitPage, 
     A_Stage1,
     WaitPage_F1,

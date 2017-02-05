@@ -12,8 +12,18 @@
 {% include Constants.instructions_template %}
 
 
+        {% if debug %}
+        <div class="panel panel-success">
+            <div class="panel-heading">
+            debug mode only: 
+            <br><br>
+                    {% next_button %}<br><br><br><br>
 
-    {% next_button %}
+            </div>
+        </div>
+    {% endif %}
+
+
 
 {% endblock %}
 

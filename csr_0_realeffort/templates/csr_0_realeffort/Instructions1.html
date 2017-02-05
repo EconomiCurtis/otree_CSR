@@ -20,11 +20,14 @@
         Please read, sign, and return the consent form in front of you and review the instructions. 
     </p>
     <p>
-        When you have finished reviewing the materials, press Continue below
+        
     </p>
 
 </div>
 
-    {% next_button %}
+    {% if debug %}
+      In debug mode only, 
+      {% next_button %}<br><br><br>
+    {% endif %}
 
 {% endblock %}

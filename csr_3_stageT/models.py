@@ -31,16 +31,25 @@ First implementation by Curtis Kephart (curtiskephart@gmail.com) 2016.11
 class Constants(BaseConstants):
     name_in_url = 'csr_3_stage'
     players_per_group = 2
-    num_rounds = 15
+    num_rounds = 2
     stage_rounds = 1 # moved to stratagey method, one round only
     automatic_earnings = 120
     endowment_boost = 60
+    final_score_discounter = 0.25
     instructions_template = 'csr_3_stageT/instruc.html'
 
 
 class Subsession(BaseSubsession):
+
 	def before_session_starts(self):
-		pass
+
+		for p in self.get_players():
+		    if 'final_score_discounter' in self.session.config:
+		        p.participant.vars['final_score_discounter'] = self.session.config['Final_score_discounter']
+		    else:
+		        p.participant.vars['final_score_discounter'] = Constants.final_score_discounter
+
+
 
 
 
@@ -135,14 +144,38 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
+	quiz_01 = models.PositiveIntegerField(
+	    verbose_name='Your earnings:',
+	    min = 0,
+	    max = 999,
+	    initial=None,
+	    doc='quiz answer')
+	  
+	quiz_02 = models.PositiveIntegerField(
+	    verbose_name='Your earnings:',
+	    min = 0,
+	    max = 999,
+	    initial=None,
+	    doc='quiz answer')
+
+	quiz_03 = models.PositiveIntegerField(
+	    verbose_name='Your earnings:',
+	    min = 0,
+	    max = 999,
+	    initial=None,
+	    doc='quiz answer')
+
+
+
+
 	ret_score = models.IntegerField(
-    	doc="player's real effort task score - correct number of RETs mapped to a number.")
+		doc="player's real effort task score - correct number of RETs mapped to a number.")
 
 	vcm_score = models.IntegerField(
-    	doc="score player received in vcm round.")
+		doc="score player received in vcm round.")
 
 	vcm_ge_percent = models.IntegerField(
-    	doc="player's average group exchange contribution in vcm rounds")
+		doc="player's average group exchange contribution in vcm rounds")
 
 
 
