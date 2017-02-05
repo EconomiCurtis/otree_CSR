@@ -61,7 +61,7 @@ AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 
 
 # e.g. EUR, CAD, GBP, CHF, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'AED '
 USE_POINTS = True
 
 
@@ -137,7 +137,7 @@ mturk_hit_settings = {
 SESSION_CONFIG_DEFAULTS = {
 
     'real_world_currency_per_point': 1.0,
-    'participation_fee': 0.00,
+    'participation_fee': 30.0,
     'doc': "CSR Testing",
     'mturk_hit_settings': mturk_hit_settings,
 }
@@ -147,27 +147,34 @@ SESSION_CONFIGS = [
 
 
     {
-        'name': 'csr',
-        'display_name': "CSR - Intructions, RET, VCM (Cold Prickle), Stage, Payment",
+        'name': 'csr_cp',
+        'display_name': "CSR ❄️🌯 - Intructions, RET, VCM (Cold Prickle ❄🌯️), Stage, Payment",
         'num_demo_participants': 4,
         'app_sequence': [
-            'csr_0_realeffort','csr_1_quiz','csr_2_vcm','csr_3_stageT',
+            'csr_0_realeffort','csr_1_quiz_coldPrickle','csr_2_vcm_coldPrickle','csr_3_stageT',
         ],
         'real_world_currency_per_point': 1.0,
         'ret_time': 180,
         'vcm_round_count': 10,
+        'participation_fee': 30.0,
+        'final_score_discounter':0.25,
     },
     {
-        'name': 'csr_vcmstage',
-        'display_name': "CSR: VCM (2Rounds) -> Stage -> Payment",
+        'name': 'csr_wg',
+        'display_name': "CSR ☀🌅 - Intructions, RET, VCM (Warm Glow ☀🌅), Stage, Payment",
         'num_demo_participants': 4,
         'app_sequence': [
-        'csr_2_vcm','csr_3_stageT',
+            'csr_0_realeffort','csr_1_quiz_warmGlow','csr_2_vcm_warmGlow','csr_3_stageT',
         ],
-        'real_world_currency_per_point': 0.01,
+        'real_world_currency_per_point': 1.0,
         'ret_time': 180,
-        'vcm_round_count': 2,
+        'vcm_round_count': 10,
+        'participation_fee': 30.0,
+        'final_score_discounter':0.25,
     },
+
+
+    
     {
         'name': 'csr_0_realeffort',
         'display_name': "CSR: Just Real Effort",
@@ -178,13 +185,51 @@ SESSION_CONFIGS = [
         'ret_time': 180,
     },
     {
-        'name': 'csr_1_quiz',
-        'display_name': "CSR: Just VCM Quiz",
+        'name': 'csr_1_quiz_cp',
+        'display_name': "CSR: Just ❄️🌯-VCM Quiz",
         'num_demo_participants': 4,
         'app_sequence': [
-            'csr_1_quiz',
+            'csr_1_quiz_coldPrickle',
         ],
     },
+    {
+        'name': 'csr_1_quiz_wg',
+        'display_name': "CSR: Just ☀🌅-VCM Quiz",
+        'num_demo_participants': 4,
+        'app_sequence': [
+            'csr_1_quiz_warmGlow',
+        ],
+    },
+    {
+        'name': 'csr_vcmstage_cp',
+        'display_name': "Just CSR ❄🌯️ VCM: ❄️🌯-VCM (2Rounds/short) -> Stage -> Payment",
+        'num_demo_participants': 4,
+        'app_sequence': [
+        'csr_2_vcm_coldPrickle','csr_3_stageT',
+        ],
+        'real_world_currency_per_point': 0.01,
+        'ret_time': 180,
+        'vcm_round_count': 2,
+    },
+    {
+        'name': 'csr_vcmstage_wp',
+        'display_name': "Just CSR ☀🌅 VCM: ☀🌅-VCM (2Rounds/short) -> Stage -> Payment",
+        'num_demo_participants': 4,
+        'app_sequence': [
+        'csr_2_vcm_warmGlow','csr_3_stageT',
+        ],
+        'real_world_currency_per_point': 0.01,
+        'ret_time': 180,
+        'vcm_round_count': 5,
+    },
+    # {
+    #     'name': 'csr_3_stageQuiz',
+    #     'display_name': "CSR: Just Stage Game Quiz",
+    #     'num_demo_participants': 4,
+    #     'app_sequence': [
+    #         'csr_3_stageQuiz',
+    #     ],
+    # },
 
 
 
