@@ -23,7 +23,7 @@
                 <th>Text</th>
                 <th>Your Entry</th>
                 <th>Correct?</th>
-                <th>Score</th>
+                <!-- <th>Score</th> -->
             </tr>
             {% for row in table_rows %}
             <tr>
@@ -31,7 +31,7 @@
                 <td><font FACE="courier">{{ row.real_text }}</font></td>
                 <td><font FACE="courier">{{ row.player_text }}</font></td>
                 <td>{{ row.is_correct }}</td>
-                <td>{{ row.total_score }}</td>
+                <!-- <td>{{ row.total_score }}</td> -->
             </tr>
             {% endfor %}
 

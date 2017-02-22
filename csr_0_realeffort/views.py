@@ -22,6 +22,7 @@ class Instructions1(Page):
         return self.round_number == 1
 
     def var_for_template(self):
+
         return{
             'debug': settings.DEBUG,
         }
@@ -193,7 +194,7 @@ class TaskResults(Page):
 
 page_sequence = [
     holdon,
-    Instructions1, 
+    # Instructions1, 
     Instructions2,
     TranscribeTask,
     ResultsWaitPage,

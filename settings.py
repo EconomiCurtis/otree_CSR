@@ -93,17 +93,22 @@ DEMO_PAGE_INTRO_TEXT = """
 """
 
 ROOMS = [
+    # {
+    #     'name': 'econ101',
+    #     'display_name': 'Econ 101 class',
+    #     'participant_label_file': '_rooms/econ101.txt',
+    # },
+    # {
+    #     'name': 'live_demo',
+    #     'display_name': 'Room for live demo (no participant labels)',
+    # },
     {
-        'name': 'econ101',
-        'display_name': 'Econ 101 class',
-        'participant_label_file': '_rooms/econ101.txt',
-    },
-    {
-        'name': 'live_demo',
-        'display_name': 'Room for live demo (no participant labels)',
+        'name': 'ssel_b_side',
+        'display_name': 'SSEL Desktops B01 - B24',
+        'participant_label_file': '_rooms/ssel_b_side.txt',
     },
 ]
-
+ 
 
 # from here on are qualifications requirements for workers
 # see description for requirements on Amazon Mechanical Turk website:
@@ -154,7 +159,7 @@ SESSION_CONFIGS = [
             'csr_0_realeffort','csr_1_quiz_coldPrickle','csr_2_vcm_coldPrickle','csr_3_stageT',
         ],
         'real_world_currency_per_point': 1.0,
-        'ret_time': 180,
+        'ret_time': 300,
         'vcm_round_count': 10,
         'participation_fee': 30.0,
         'final_score_discounter':0.25,
@@ -167,7 +172,7 @@ SESSION_CONFIGS = [
             'csr_0_realeffort','csr_1_quiz_warmGlow','csr_2_vcm_warmGlow','csr_3_stageT',
         ],
         'real_world_currency_per_point': 1.0,
-        'ret_time': 180,
+        'ret_time': 300,
         'vcm_round_count': 10,
         'participation_fee': 30.0,
         'final_score_discounter':0.25,
