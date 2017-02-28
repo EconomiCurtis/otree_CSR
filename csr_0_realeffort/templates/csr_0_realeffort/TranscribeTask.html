@@ -127,6 +127,17 @@
             msLeft = endTime - (+new Date);
             if ( msLeft < 1000 ) {
                 element.innerHTML = "0";
+                $('<input>').attr({
+                    type: 'text',
+                    name: 'user_text',
+                    value: 'Too Late'
+                }).appendTo('form');
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'auto_submit',
+                    value: '1'
+                }).appendTo('form');
+                $('#form').submit();
             } else {
                 time = new Date( msLeft );
                 hours = time.getUTCHours();
@@ -144,5 +155,6 @@
     countdown( "countdown", 0, {{tiemdf}} );
     countdown( "countdown2", 100, 0 );
  </script>
+
 
 {% endblock %}

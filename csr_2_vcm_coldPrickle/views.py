@@ -171,16 +171,22 @@ class SelectInvestment_Review(Page):
 
         # all players in group, ge_percent; avg ge contribution for all rounds.  
         ge_percent_list = []
+        overall_ge_list = []
         for op in self.group.get_players():
             op_ge_percent = []
+            op_ge = []
             for prev_op in op.in_all_rounds():
                 if prev_op.group_exchange_percent != None:
                     op_ge_percent.append(prev_op.group_exchange_percent)
+                    op_ge.append(prev_op.group_exchange)
             ge_percent_list.append(np.sum(op_ge_percent) / np.size(op_ge_percent))
+            overall_ge_list.append(np.sum(op_ge) / np.size(op_ge))
 
         self.participant.vars['overall_ge_percent_list'] = ge_percent_list
         self.session.vars['overall_ge_percent_list'] = ge_percent_list #used in stage game
         self.participant.vars['overall_own_ge_percent'] = own_ge_percent
+        self.participant.vars['overall_ge_list'] = overall_ge_list
+
 
 
         return {
@@ -198,6 +204,7 @@ class SelectInvestment_Review(Page):
             'round_points':self.player.round_points,
             'overall_own_ge_percent':own_ge_percent,
             'overall_ge_percent_list':ge_percent_list,
+            'overall_ge_list':self.participant.vars['overall_ge_list'],
         } 
 
 
@@ -296,6 +303,7 @@ class Part3_prep(Page):
         return {
             'table_rows': table_rows,
             'own_ge_percent':self.participant.vars["overall_ge_percent"],
+            'own_ge_overallavg':self.participant.vars['overall_own_ge'],
             'role':self.participant.vars['Role'],
             'roles':roles,
             'paid_round':self.participant.vars['paid_round'],
@@ -307,6 +315,7 @@ class Part3_prep(Page):
             'ret_scores':self.participant.vars["ret_scores"],
             'ret_score':self.participant.vars["ret_score"],
             'overall_ge_percent_list':self.participant.vars['overall_ge_percent_list'],
+            'overall_ge_list':self.participant.vars['overall_ge_list'],
             'player_role_list':self.participant.vars['player_role_list'],
             
             'debug': settings.DEBUG,

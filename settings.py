@@ -210,7 +210,7 @@ SESSION_CONFIGS = [
         'display_name': "Just CSR ❄🌯️ VCM: ❄️🌯-VCM (2Rounds/short) -> Stage -> Payment",
         'num_demo_participants': 4,
         'app_sequence': [
-        'csr_2_vcm_coldPrickle','csr_3_stageT',
+        'csr_2_vcm_coldPrickle','csr_3_stageT_coldPrickle',
         ],
         'real_world_currency_per_point': 0.01,
         'ret_time': 180,
@@ -238,173 +238,173 @@ SESSION_CONFIGS = [
 
 
 
-    {
-        'name': 'public_goods',
-        'display_name': "Demo - Public Goods",
-        'num_demo_participants': 3,
-        'app_sequence': ['public_goods', 'payment_info'],
-    },
-    {
-        'name': 'trust',
-        'display_name': "Demo - Trust Game",
-        'num_demo_participants': 2,
-        'app_sequence': ['trust', 'payment_info'],
-    },
-    {
-        'name': 'guess_two_thirds',
-        'display_name': "Demo - Guess 2/3 of the Average",
-        'num_demo_participants': 3,
-        'app_sequence': ['guess_two_thirds', 'payment_info'],
-    },
-    {
-        'name': 'survey',
-        'display_name': "Demo - Survey",
-        'num_demo_participants': 1,
-        'app_sequence': ['survey', 'payment_info'],
-    },
-    {
-        'name': 'quiz',
-        'display_name': "Demo - Quiz",
-        'num_demo_participants': 1,
-        'app_sequence': ['quiz'],
-    },
-    {
-        'name': 'prisoner',
-        'display_name': "Demo - Prisoner's Dilemma",
-        'num_demo_participants': 2,
-        'app_sequence': ['prisoner', 'payment_info'],
-    },
-    {
-        'name': 'ultimatum',
-        'display_name': "Demo - Ultimatum (randomized: strategy vs. direct response)",
-        'num_demo_participants': 2,
-        'app_sequence': ['ultimatum', 'payment_info'],
-    },
-    {
-        'name': 'ultimatum_strategy',
-        'display_name': "Demo - Ultimatum (strategy method treatment)",
-        'num_demo_participants': 2,
-        'app_sequence': ['ultimatum', 'payment_info'],
-        'treatment': 'strategy',
-    },
-    {
-        'name': 'ultimatum_non_strategy',
-        'display_name': "Demo - Ultimatum (direct response treatment)",
-        'num_demo_participants': 2,
-        'app_sequence': ['ultimatum', 'payment_info'],
-        'treatment': 'direct_response',
-    },
-    {
-        'name': 'vickrey_auction',
-        'display_name': "Demo - Vickrey Auction",
-        'num_demo_participants': 3,
-        'app_sequence': ['vickrey_auction', 'payment_info'],
-    },
-    {
-        'name': 'volunteer_dilemma',
-        'display_name': "Demo - Volunteer's Dilemma",
-        'num_demo_participants': 3,
-        'app_sequence': ['volunteer_dilemma', 'payment_info'],
-    },
-    {
-        'name': 'cournot',
-        'display_name': "Demo - Cournot Competition",
-        'num_demo_participants': 2,
-        'app_sequence': [
-            'cournot', 'payment_info'
-        ],
-    },
-    {
-        'name': 'principal_agent',
-        'display_name': "Demo - Principal Agent",
-        'num_demo_participants': 2,
-        'app_sequence': ['principal_agent', 'payment_info'],
-    },
-    {
-        'name': 'dictator',
-        'display_name': "Demo - Dictator Game",
-        'num_demo_participants': 2,
-        'app_sequence': ['dictator', 'payment_info'],
-    },
-    {
-        'name': 'matching_pennies',
-        'display_name': "Demo - Matching Pennies",
-        'num_demo_participants': 2,
-        'app_sequence': [
-            'matching_pennies',
-        ],
-    },
-    {
-        'name': 'traveler_dilemma',
-        'display_name': "Demo - Traveler's Dilemma",
-        'num_demo_participants': 2,
-        'app_sequence': ['traveler_dilemma', 'payment_info'],
-    },
-    {
-        'name': 'bargaining',
-        'display_name': "Demo - Bargaining Game",
-        'num_demo_participants': 2,
-        'app_sequence': ['bargaining', 'payment_info'],
-    },
-    {
-        'name': 'common_value_auction',
-        'display_name': "Demo - Common Value Auction",
-        'num_demo_participants': 3,
-        'app_sequence': ['common_value_auction', 'payment_info'],
-    },
-    {
-        'name': 'stackelberg',
-        'display_name': "Demo - Stackelberg Competition",
-        'real_world_currency_per_point': 0.01,
-        'num_demo_participants': 2,
-        'app_sequence': [
-            'stackelberg', 'payment_info'
-        ],
-    },
-    {
-        'name': 'bertrand',
-        'display_name': "Demo - Bertrand Competition",
-        'num_demo_participants': 2,
-        'app_sequence': [
-            'bertrand', 'payment_info'
-        ],
-    },
-    {
-        'name': 'real_effort',
-        'display_name': "Demo - Real-effort transcription task",
-        'num_demo_participants': 1,
-        'app_sequence': [
-            'real_effort',
-        ],
-    },
-    {
-        'name': 'lemon_market',
-        'display_name': "Demo - Lemon Market Game",
-        'num_demo_participants': 3,
-        'app_sequence': [
-            'lemon_market', 'payment_info'
-        ],
-    },
-    {
-        'name': 'battle_of_the_sexes',
-        'display_name': "Demo - Battle of the Sexes",
-        'num_demo_participants': 2,
-        'app_sequence': [
-            'battle_of_the_sexes', 'payment_info'
-        ],
-    },
-    {
-        'name': 'public_goods_simple',
-        'display_name': "Demo - Public Goods (simple version from tutorial)",
-        'num_demo_participants': 3,
-        'app_sequence': ['public_goods_simple', 'survey', 'payment_info'],
-    },
-    {
-        'name': 'trust_simple',
-        'display_name': "Demo - Trust Game (simple version from tutorial)",
-        'num_demo_participants': 2,
-        'app_sequence': ['trust_simple'],
-    },
+    # {
+    #     'name': 'public_goods',
+    #     'display_name': "Demo - Public Goods",
+    #     'num_demo_participants': 3,
+    #     'app_sequence': ['public_goods', 'payment_info'],
+    # },
+    # {
+    #     'name': 'trust',
+    #     'display_name': "Demo - Trust Game",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['trust', 'payment_info'],
+    # },
+    # {
+    #     'name': 'guess_two_thirds',
+    #     'display_name': "Demo - Guess 2/3 of the Average",
+    #     'num_demo_participants': 3,
+    #     'app_sequence': ['guess_two_thirds', 'payment_info'],
+    # },
+    # {
+    #     'name': 'survey',
+    #     'display_name': "Demo - Survey",
+    #     'num_demo_participants': 1,
+    #     'app_sequence': ['survey', 'payment_info'],
+    # },
+    # {
+    #     'name': 'quiz',
+    #     'display_name': "Demo - Quiz",
+    #     'num_demo_participants': 1,
+    #     'app_sequence': ['quiz'],
+    # },
+    # {
+    #     'name': 'prisoner',
+    #     'display_name': "Demo - Prisoner's Dilemma",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['prisoner', 'payment_info'],
+    # },
+    # {
+    #     'name': 'ultimatum',
+    #     'display_name': "Demo - Ultimatum (randomized: strategy vs. direct response)",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['ultimatum', 'payment_info'],
+    # },
+    # {
+    #     'name': 'ultimatum_strategy',
+    #     'display_name': "Demo - Ultimatum (strategy method treatment)",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['ultimatum', 'payment_info'],
+    #     'treatment': 'strategy',
+    # },
+    # {
+    #     'name': 'ultimatum_non_strategy',
+    #     'display_name': "Demo - Ultimatum (direct response treatment)",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['ultimatum', 'payment_info'],
+    #     'treatment': 'direct_response',
+    # },
+    # {
+    #     'name': 'vickrey_auction',
+    #     'display_name': "Demo - Vickrey Auction",
+    #     'num_demo_participants': 3,
+    #     'app_sequence': ['vickrey_auction', 'payment_info'],
+    # },
+    # {
+    #     'name': 'volunteer_dilemma',
+    #     'display_name': "Demo - Volunteer's Dilemma",
+    #     'num_demo_participants': 3,
+    #     'app_sequence': ['volunteer_dilemma', 'payment_info'],
+    # },
+    # {
+    #     'name': 'cournot',
+    #     'display_name': "Demo - Cournot Competition",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': [
+    #         'cournot', 'payment_info'
+    #     ],
+    # },
+    # {
+    #     'name': 'principal_agent',
+    #     'display_name': "Demo - Principal Agent",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['principal_agent', 'payment_info'],
+    # },
+    # {
+    #     'name': 'dictator',
+    #     'display_name': "Demo - Dictator Game",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['dictator', 'payment_info'],
+    # },
+    # {
+    #     'name': 'matching_pennies',
+    #     'display_name': "Demo - Matching Pennies",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': [
+    #         'matching_pennies',
+    #     ],
+    # },
+    # {
+    #     'name': 'traveler_dilemma',
+    #     'display_name': "Demo - Traveler's Dilemma",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['traveler_dilemma', 'payment_info'],
+    # },
+    # {
+    #     'name': 'bargaining',
+    #     'display_name': "Demo - Bargaining Game",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['bargaining', 'payment_info'],
+    # },
+    # {
+    #     'name': 'common_value_auction',
+    #     'display_name': "Demo - Common Value Auction",
+    #     'num_demo_participants': 3,
+    #     'app_sequence': ['common_value_auction', 'payment_info'],
+    # },
+    # {
+    #     'name': 'stackelberg',
+    #     'display_name': "Demo - Stackelberg Competition",
+    #     'real_world_currency_per_point': 0.01,
+    #     'num_demo_participants': 2,
+    #     'app_sequence': [
+    #         'stackelberg', 'payment_info'
+    #     ],
+    # },
+    # {
+    #     'name': 'bertrand',
+    #     'display_name': "Demo - Bertrand Competition",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': [
+    #         'bertrand', 'payment_info'
+    #     ],
+    # },
+    # {
+    #     'name': 'real_effort',
+    #     'display_name': "Demo - Real-effort transcription task",
+    #     'num_demo_participants': 1,
+    #     'app_sequence': [
+    #         'real_effort',
+    #     ],
+    # },
+    # {
+    #     'name': 'lemon_market',
+    #     'display_name': "Demo - Lemon Market Game",
+    #     'num_demo_participants': 3,
+    #     'app_sequence': [
+    #         'lemon_market', 'payment_info'
+    #     ],
+    # },
+    # {
+    #     'name': 'battle_of_the_sexes',
+    #     'display_name': "Demo - Battle of the Sexes",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': [
+    #         'battle_of_the_sexes', 'payment_info'
+    #     ],
+    # },
+    # {
+    #     'name': 'public_goods_simple',
+    #     'display_name': "Demo - Public Goods (simple version from tutorial)",
+    #     'num_demo_participants': 3,
+    #     'app_sequence': ['public_goods_simple', 'survey', 'payment_info'],
+    # },
+    # {
+    #     'name': 'trust_simple',
+    #     'display_name': "Demo - Trust Game (simple version from tutorial)",
+    #     'num_demo_participants': 2,
+    #     'app_sequence': ['trust_simple'],
+    # },
 
 ]
 

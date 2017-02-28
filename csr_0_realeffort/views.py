@@ -132,6 +132,8 @@ class ResultsWaitPage(WaitPage):
         #     p.set_payoff()
 
 class TaskResults(Page):
+    # timeout_seconds = 1000
+
     def is_displayed(self):
         return self.round_number == 101
 

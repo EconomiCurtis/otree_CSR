@@ -45,7 +45,7 @@ class Subsession(BaseSubsession):
 
 		for p in self.get_players():
 		    if 'final_score_discounter' in self.session.config:
-		        p.participant.vars['final_score_discounter'] = self.session.config['Final_score_discounter']
+		        p.participant.vars['final_score_discounter'] = self.session.config['final_score_discounter']
 		    else:
 		        p.participant.vars['final_score_discounter'] = Constants.final_score_discounter
 
@@ -199,6 +199,14 @@ class Player(BasePlayer):
 
 				p.round_payoff = (A_Endow - A_GE) - (1/2 * total_op_individual_exchange) + (1/2 * A_GE) + Constants.automatic_earnings
 
+
+	# # from vcm game
+	# def set_payoffs(self):
+	# 	"""calc player payoffs"""
+	# 	self.total_op_individual_exchange = sum([p.individual_exchange for p in self.get_others_in_group()])
+	# 	self.total_op_group_exchange = sum([p.group_exchange for p in self.get_others_in_group()])
+
+	# 	self.round_points = self.individual_exchange - (1/2) * self.total_op_individual_exchange + (1/2) * self.group_exchange + Constants.automatic_earnings
 
 
 

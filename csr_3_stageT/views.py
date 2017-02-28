@@ -156,13 +156,7 @@ class Instructions(Page):
         else:  self.player.role = "sadf"
 
 
-class WaitPage(WaitPage):
 
-    def is_displayed(self):
-        return self.round_number >= 2 
-
-    def after_all_players_arrive(self):
-        pass
 
 ###############################################################################
 ## Quiz Time ##################################################################
@@ -217,6 +211,90 @@ class quiz2_sol(Page):
     def is_displayed(self):
         return self.round_number == 1
 
+###############################################################################
+#### Pre Game Prep ############################################################
+###############################################################################
+
+
+class WaitPage(WaitPage):
+
+    def is_displayed(self):
+        return self.round_number >= 2 
+
+    def after_all_players_arrive(self):
+        pass
+
+class pregame(Page):
+    def is_displayed(self):
+        return (self.round_number == 1)
+
+    def after_all_players_arrive(self):
+        pass
+
+    def vars_for_template(self):
+
+        ges_extra_2p = self.participant.vars['final_ges'][:]
+        ges_team_2p = [self.player.get_others_in_group()[0].participant.vars['final_ge'], self.participant.vars['final_ge']]
+        for ges_team_2p_val in ges_team_2p:
+          cnt = 0
+          for ges_extra_2p_val in ges_extra_2p:
+            if ges_extra_2p_val ==  ges_team_2p_val:
+              ges_extra_2p.pop(cnt)
+              cnt=cnt+1
+            else: 
+              cnt=cnt+1
+
+        ges_percent_extra_2p = self.participant.vars['overall_ge_percent_list'][:]
+        ges_percent_team_2p = [
+            self.participant.vars['overall_ge_percent'], 
+            self.player.get_others_in_group()[0].participant.vars['overall_ge_percent']]
+        for ges_percent_team_2p_val in ges_percent_team_2p:
+          cnt = 0
+          for ges_percent_extra_2p_val in ges_percent_extra_2p:
+            if ges_percent_extra_2p_val ==  ges_percent_team_2p_val:
+              ges_percent_extra_2p.pop(cnt)
+              cnt=cnt+1
+            else: 
+              cnt=cnt+1
+
+
+        
+
+        return {
+        'ges_team_2p':ges_team_2p,
+        'ges_percent_team_2p':ges_percent_team_2p,
+        'ges_percent_extra_2p':[i * 100 for i in ges_percent_extra_2p],
+        'ges_extra_2p':ges_extra_2p,
+        'player_role_list':self.participant.vars["player_role_list"],
+        'stage_round':self.participant.vars['stage_round'],
+        'Role_self':self.player.role,
+        'Role_partic_var':self.participant.vars["Role"],
+        'counter_party_id':self.player.get_others_in_group(),
+        'counter_party_role':self.player.get_others_in_group()[0].participant.vars['Role'],    
+        'counter_party_score':self.player.get_others_in_group()[0].participant.vars['final_score'], 
+        'countery_party_ret_score':self.player.get_others_in_group()[0].participant.vars['ret_score'], 
+        'counter_party_ge':self.player.get_others_in_group()[0].participant.vars['final_ge'],  
+        'counter_party_overall_ge_percent':round(self.player.get_others_in_group()[0].participant.vars['overall_ge_percent'],2)*100,   
+        'self_ret_score':self.participant.vars["ret_score"], 
+        'self_score':self.participant.vars['final_score'],
+        'self_ge':self.participant.vars['final_ge'],
+        'self_overall_ge_percent':self.participant.vars['overall_ge_percent']*100,
+        'overall_ge_percent_list':self.participant.vars['overall_ge_percent_list'],
+        'own_ge_percent':self.participant.vars['overall_ge_percent_list'][self.player.id_in_group - 1],
+        'ret_scores':self.participant.vars["ret_scores"],
+        'role':self.participant.vars['Role'],
+        'final_scores':self.participant.vars['final_scores'],
+        'final_ges':self.participant.vars['final_ges'],
+        'ret_scores':self.participant.vars["ret_scores"],
+        'overall_ge_percent_list':self.participant.vars['overall_ge_percent_list'],
+
+
+        'debug': settings.DEBUG,
+    }
+
+
+    def after_all_players_arrive(self):
+        pass
 
 
 ###############################################################################
@@ -303,12 +381,13 @@ class F_Stage2(Page):
 class WaitPage_A1(WaitPage):
 
     def is_displayed(self):
-        return (self.round_number ==1 )
+        return (self.round_number == 1)
 
 
     def after_all_players_arrive(self):
         # another wait page, with logic to decide to skip all next rounds. 
         self.group.F1F2_update()
+
 
 
 
@@ -488,6 +567,7 @@ page_sequence = [
     quiz2,
     quiz2_sol,
     WaitPage, 
+    pregame,
     A_Stage1,
     WaitPage_F1,
     F_Stage2,
