@@ -156,7 +156,7 @@ SESSION_CONFIGS = [
         'display_name': "CSR ❄️🌯 - Intructions, RET, VCM (Cold Prickle ❄🌯️), Stage, Payment",
         'num_demo_participants': 4,
         'app_sequence': [
-            'csr_0_realeffort','csr_1_quiz_coldPrickle','csr_2_vcm_coldPrickle','csr_3_stageT',
+            'csr_0_realeffort','csr_1_quiz_coldPrickle','csr_2_vcm_coldPrickle','csr_3_stageT_coldPrickle',
         ],
         'real_world_currency_per_point': 1.0,
         'ret_time': 300,
@@ -169,7 +169,7 @@ SESSION_CONFIGS = [
         'display_name': "CSR ☀🌅 - Intructions, RET, VCM (Warm Glow ☀🌅), Stage, Payment",
         'num_demo_participants': 4,
         'app_sequence': [
-            'csr_0_realeffort','csr_1_quiz_warmGlow','csr_2_vcm_warmGlow','csr_3_stageT',
+            'csr_0_realeffort','csr_1_quiz_warmGlow','csr_2_vcm_warmGlow','csr_3_stageT_warmGlow',
         ],
         'real_world_currency_per_point': 1.0,
         'ret_time': 300,
@@ -221,7 +221,7 @@ SESSION_CONFIGS = [
         'display_name': "Just CSR ☀🌅 VCM: ☀🌅-VCM (2Rounds/short) -> Stage -> Payment",
         'num_demo_participants': 4,
         'app_sequence': [
-        'csr_2_vcm_warmGlow','csr_3_stageT',
+        'csr_2_vcm_warmGlow','csr_3_stageT_warmGlow',
         ],
         'real_world_currency_per_point': 0.01,
         'ret_time': 180,
