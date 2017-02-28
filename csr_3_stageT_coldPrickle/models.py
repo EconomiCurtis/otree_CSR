@@ -183,10 +183,6 @@ class Player(BasePlayer):
 	    doc='quiz answer')
 
 
-	terminal_choice = models.CharField(
-		doc="""'the terminal node reached by A and F""",
-		widget=widgets.RadioSelect())
-
 
 
 	ret_score = models.IntegerField(
@@ -207,21 +203,6 @@ class Player(BasePlayer):
 	round_base_points = models.IntegerField(
 		doc = ''' player's base score. if no adjustments are made to own or counterpart GE contributions, player will earn this ''')
 
-
-	postStage_self_individual_exchange = models.FloatField(
-		doc='''"player's individual exchange contribution after stage game"''')
-
-	postStage_self_ge = models.FloatField(
-		doc='''"player's group exchange contribution after stage game"''')
-
-	postStage_op_individual_exchange = models.CharField(
-		doc='''"player's three other countryparty player's individual after stage game"''')
-
-	postStage_op_group_exchange = models.CharField(
-		doc='''"player's three other countryparty player's group exchange after stage game"''')
-
-	postStage_round_points = models.CharField(
-		doc='''"player's final score from stage game"''')
 
 
 	def set_payoff(self, A_GE, A_Endow, F_GE, F_Endow):
@@ -293,7 +274,9 @@ class Player(BasePlayer):
 		widget=widgets.RadioSelect())
 
 
-
+	terminal_choice = models.CharField(
+		doc="""'the terminal node reached by A and F""",
+		widget=widgets.RadioSelect())
 
 	def set_terminal_node(self):
 		"""explicitly define terminal node reached by A and F in this group"""
@@ -321,6 +304,24 @@ class Player(BasePlayer):
 
 		for p in self.group.get_players():
 			p.terminal_choice = TN
+
+
+	postStage_self_individual_exchange = models.FloatField(
+		doc='''"player's individual exchange contribution after stage game"''')
+
+	postStage_self_ge = models.FloatField(
+		doc='''"player's group exchange contribution after stage game"''')
+
+	postStage_op_individual_exchange = models.CharField(
+		doc='''"player's three other countryparty player's individual after stage game"''')
+
+	postStage_op_group_exchange = models.CharField(
+		doc='''"player's three other countryparty player's group exchange after stage game"''')
+
+	postStage_round_points = models.FloatField(
+		doc='''"player's final score from stage game"''')
+
+
 
 
 

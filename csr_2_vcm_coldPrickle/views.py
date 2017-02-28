@@ -187,8 +187,6 @@ class SelectInvestment_Review(Page):
         self.participant.vars['overall_own_ge_percent'] = own_ge_percent
         self.participant.vars['overall_ge_list'] = overall_ge_list
 
-
-
         return {
             'vcm_round_number':self.participant.vars['vcm_round_number'],
             'ret_score':ret_score,

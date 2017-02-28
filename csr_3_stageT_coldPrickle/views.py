@@ -320,7 +320,7 @@ class pregame(Page):
             'revwPg_op_individual_exchange': [round(i,2) for i in op_individual_exchange],
             'revwPg_score_op_individual_exchange':sum(op_individual_exchange) * 0.5,
             'revwPg_op_group_exchange':[round(i,2) for i in op_group_exchange],
-            'revwPg_round_points':round_points,
+            'revwPg_round_points':self.player.round_base_points,
 
 
             'debug': settings.DEBUG,
@@ -362,6 +362,10 @@ class A_Stage1(Page):
             'self_score':self.participant.vars['final_score'],
             'self_ge':self.participant.vars['final_ge'],
             'self_overall_ge_percent':round(self.participant.vars['overall_ge_percent']*100, 2),
+        'revwPg_round_points':self.player.participant.vars['round_base_points'],
+        'revwPg_self_ge_overallavg':self.participant.vars['overall_own_ge'],
+        'revwPg_counterpart_round_points':self.player.get_others_in_group()[0].participant.vars['round_base_points'],
+
         }
 
 
@@ -407,6 +411,10 @@ class F_Stage2(Page):
             'self_score':self.participant.vars['final_score'],
             'self_ge':self.participant.vars['final_ge'],
             'self_overall_ge_percent':round(self.participant.vars['overall_ge_percent']*100, 2),
+        'revwPg_round_points':self.player.participant.vars['round_base_points'],
+        'revwPg_self_ge_overallavg':self.participant.vars['overall_own_ge'],
+        'revwPg_counterpart_round_points':self.player.get_others_in_group()[0].participant.vars['round_base_points'],
+
         }
 
 
@@ -455,6 +463,10 @@ class A_Stage3(Page):
         'self_score':self.participant.vars['final_score'],
         'self_ge':self.participant.vars['final_ge'],
         'self_overall_ge_percent':round(self.participant.vars['overall_ge_percent']*100, 2),
+        'revwPg_round_points':self.player.participant.vars['round_base_points'],
+        'revwPg_self_ge_overallavg':self.participant.vars['overall_own_ge'],
+        'revwPg_counterpart_round_points':self.player.get_others_in_group()[0].participant.vars['round_base_points'],
+
         }
 
 
@@ -496,6 +508,10 @@ class Nature(Page):
             'self_ge':self.participant.vars['final_ge'],
             'self_overall_ge_percent':round(self.participant.vars['overall_ge_percent']*100, 2),
             'nature':self.player.Nature,
+        'revwPg_round_points':self.player.participant.vars['round_base_points'],
+        'revwPg_self_ge_overallavg':self.participant.vars['overall_own_ge'],
+        'revwPg_counterpart_round_points':self.player.get_others_in_group()[0].participant.vars['round_base_points'],
+
         }
 
 
