@@ -82,7 +82,7 @@ class Player(BasePlayer):
 		doc="Group exchange contribution in this round")
 
 	group_exchange_percent = models.FloatField(
-		min = 5, max = 95,
+		min = 5, max = 50,
 		blank=True, #not required
 		doc="in this round, this subject's percent contribution to group exchange relative to total amount availale to user",
 		widget=widgets.SliderInput(
@@ -161,4 +161,5 @@ class Player(BasePlayer):
 		self.participant.vars['player_role_list'] = player_role_list #used to get roles in stage game. 
 		self.participant.vars['overall_ge_percent_list'] = overall_ge_percent_list 
 		self.participant.vars['overall_ge_percent'] = overall_ge_percent_list[own_id_index] 
+		self.participant.vars['overall_own_ge'] = overall_ge_percent_list[own_id_index] * self.participant.vars["ret_score"]
 
